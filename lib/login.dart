@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,9 +105,11 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> Login() async {
+
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       print('Please Fill All Field');
-    } else {
+    }
+    else {
       var data = {
         'email': emailController.text,
         'password': passwordController.text,
@@ -115,6 +118,10 @@ class _LoginPageState extends State<LoginPage> {
       var body = response.body;
       var status = response.statusCode;
       print(body);
+      if (status == 200 || status == 201) {
+        emailController.clear();
+        passwordController.clear();
+      }
       if (status == 200 || status == 201) {
         print('Login Success');
         Navigator.push(

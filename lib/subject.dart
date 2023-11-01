@@ -13,11 +13,10 @@ class _SubjectState extends State<Subject> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final imageHeight = screenHeight * 0.24; // Adjust the factor as needed
+    final imageHeight = screenHeight * 0.20; // Adjust the factor as needed
 
     return Center(
         child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -30,7 +29,6 @@ class _SubjectState extends State<Subject> {
                   ),
                 ),
               ),
-              SizedBox(height:20),
               CustomCard(
                 text: 'English',
                 context: context,
