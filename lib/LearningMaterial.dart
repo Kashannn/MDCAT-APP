@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Widget .dart';
+
 class LearningMaterial extends StatefulWidget {
   @override
   _LearningMaterialState createState() => _LearningMaterialState();
@@ -9,47 +11,17 @@ class _LearningMaterialState extends State<LearningMaterial> {
   final List<String> files = [
     'File 1',
     'File 2',
+    'File 3',
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight),
+        child: AllBar(text: 'Learning Material'), // Your custom Widget
+      ),
       body: buildFileList(),
-    );
-  }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      title: Text(
-        'Learning Material',
-        style: TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),
-      centerTitle: true,
-      backgroundColor: Colors.green,
-      foregroundColor: Colors.black,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(15),
-        ),
-      ),
-      flexibleSpace: Container(
-        decoration: buildGradientDecoration(),
-      ),
-    );
-  }
-
-  BoxDecoration buildGradientDecoration() {
-    return BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight,
-        colors: [Colors.blue, Colors.green],
-      ),
     );
   }
 

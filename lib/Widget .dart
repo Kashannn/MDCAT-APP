@@ -148,85 +148,6 @@ Widget CustomCard({
   );
 }
 
-Widget AllQuiz({
-  required String text,
-  required BuildContext context,
-}) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text(
-        '$text',
-        style: TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),
-      centerTitle: true,
-      backgroundColor: Colors.green,
-      foregroundColor: Colors.black,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(15),
-        ),
-      ),
-      flexibleSpace: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: [Colors.blue, Colors.green],
-          ),
-        ),
-      ),
-    ),
-    body: Center(
-      child: ListView(
-        padding: EdgeInsets.all(16),
-        children: [
-          Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: ListTile(
-              title: Text(
-                'Start Quiz',
-                style: TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onTap: () {
-                // Add your onTap logic here
-              },
-            ),
-          ),
-          SizedBox(height: 16),
-          Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: ListTile(
-              title: Text('Learning Material',
-                  style: TextStyle(
-                      color: Colors.green, fontWeight: FontWeight.bold)),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LearningMaterial()),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-
 Widget squareCard(BuildContext context,String text) {
   return Container(
       height: MediaQuery.of(context).size.height * 0.20,
@@ -257,9 +178,34 @@ Widget squareCard(BuildContext context,String text) {
         ),
       ));
 }
-
-Widget question() {
-  return Container(
-    child: Text('Question'),
-  );
+Widget AllBar({
+  required String text,
+}){
+  return Scaffold(appBar: AppBar(
+    title: Text(
+      '$text',
+      style: TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
+    centerTitle: true,
+    backgroundColor: Colors.green,
+    foregroundColor: Colors.black,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        bottom: Radius.circular(15),
+      ),
+    ),
+    flexibleSpace: Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [Colors.blue, Colors.green],
+        ),
+      ),
+    ),
+  ),);
 }

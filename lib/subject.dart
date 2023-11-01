@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/chapter.dart';
 import 'Widget .dart';
 import 'homepage.dart';
 
@@ -36,7 +37,7 @@ class _SubjectState extends State<Subject> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AllQuiz(text: 'English',context: context, ),
+                      builder: (context) =>  Chapter(),
                     ),
                   );
                 },
@@ -49,7 +50,7 @@ class _SubjectState extends State<Subject> {
                   Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AllQuiz(text: 'Physics',context: context,),
+                    builder: (context) => Chapter(),
                   ),
                   );
                 },
@@ -61,7 +62,7 @@ class _SubjectState extends State<Subject> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AllQuiz(text: 'Chemistry',context: context,),
+                      builder: (context) => Chapter(),
                     ),
                   );
                 },
@@ -73,7 +74,7 @@ class _SubjectState extends State<Subject> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AllQuiz(text: 'Biology',context: context,),
+                      builder: (context) =>  Chapter(),
                     ),
                   );
                 },

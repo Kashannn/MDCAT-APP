@@ -137,8 +137,6 @@ class _DashboardState extends State<Dashboard> {
             ? MyHomePage()
             : index == 1
             ? Subject()
-            : index == 2
-            ?LearningMaterial()
             :MyHomePage(),
 
 
