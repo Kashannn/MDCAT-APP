@@ -13,11 +13,7 @@ class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AllBar(text: 'Quiz'),
-        // Your custom Widget
-      ),
+      appBar:AllBar(text: 'Quiz'),
       body: Center(
         child: ListView(
           padding: EdgeInsets.all(16),

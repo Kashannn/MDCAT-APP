@@ -178,10 +178,11 @@ Widget squareCard(BuildContext context,String text) {
         ),
       ));
 }
-Widget AllBar({
+AppBar AllBar({
   required String text,
 }){
-  return Scaffold(appBar: AppBar(
+  return
+  AppBar(
     title: Text(
       '$text',
       style: TextStyle(
@@ -207,5 +208,5 @@ Widget AllBar({
         ),
       ),
     ),
-  ),);
+  );
 }

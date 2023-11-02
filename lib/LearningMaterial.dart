@@ -10,8 +10,6 @@ class LearningMaterial extends StatefulWidget {
 class _LearningMaterialState extends State<LearningMaterial> {
   final List<String> files = [
     'File 1',
-    'File 2',
-    'File 3',
   ];
 
   @override
