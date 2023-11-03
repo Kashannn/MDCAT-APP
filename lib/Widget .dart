@@ -148,7 +148,7 @@ Widget CustomCard({
   );
 }
 
-Widget squareCard(BuildContext context,String text) {
+Widget squareCard(BuildContext context, String text) {
   return Container(
       height: MediaQuery.of(context).size.height * 0.20,
       width: MediaQuery.of(context).size.width * 0.45,
@@ -178,11 +178,11 @@ Widget squareCard(BuildContext context,String text) {
         ),
       ));
 }
+
 AppBar AllBar({
   required String text,
-}){
-  return
-  AppBar(
+}) {
+  return AppBar(
     title: Text(
       '$text',
       style: TextStyle(
@@ -210,3 +210,48 @@ AppBar AllBar({
     ),
   );
 }
+
+Color customColor = Color(0xFFF1916D);
+
+Widget AnimatedButton({
+  required String text,
+  // required VoidCallback onPressed,
+}) {
+  return Align(
+    alignment: Alignment.centerRight, // Align to the right side
+    child: AnimatedContainer(
+      duration: Duration(milliseconds: 300),
+      margin: EdgeInsets.all(10),
+      width: 150, // Set the desired width
+      height: 50, // Set the desired height
+      decoration: BoxDecoration(
+        color: customColor, // Use the customColor here
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3), // Shadow color
+            blurRadius: 5, // Spread of the shadow
+            offset: Offset(0, 3), // Offset of the shadow
+          ),
+        ],
+      ),
+      child: InkWell(
+        // onTap: onPressed,
+        child: Center(
+          child: Text(
+            '$text',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16, // Set the desired font size
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+
+
+

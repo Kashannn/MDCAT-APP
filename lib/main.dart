@@ -4,6 +4,7 @@ import 'package:untitled3/login.dart';
 import 'Dashboard.dart';
 import 'LearningMaterial.dart';
 import 'Widget .dart';
+import 'chapter.dart';
 import 'homepage.dart';
 import 'signup.dart';
 import 'subject.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled3/API/CallApi.dart';
 import 'package:untitled3/Quiz.dart';
 
 import 'Widget .dart';
@@ -62,4 +63,9 @@ class _ChapterState extends State<Chapter> {
       ),
     );
   }
+}
+
+Future<void>getChapter () async{
+  final respnse = await CallApi().getData('chapter');
+  print("respnse");
 }
