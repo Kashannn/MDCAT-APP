@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:untitled3/Widget%20.dart';
+
+import 'Widget .dart'; // Assuming you have a valid import for the AnimatedButton
 
 class StartQuiz extends StatefulWidget {
   const StartQuiz({Key? key}) : super(key: key);
@@ -9,6 +10,8 @@ class StartQuiz extends StatefulWidget {
 }
 
 class _StartQuizState extends State<StartQuiz> {
+  int? selectedOption;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +21,7 @@ class _StartQuizState extends State<StartQuiz> {
         width: MediaQuery.of(context).size.width,
         child: Center(
           child: ListView(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.all(5),
             children: [
               Card(
                 elevation: 5,
@@ -33,17 +36,40 @@ class _StartQuizState extends State<StartQuiz> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  subtitle: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildRadioOption(0, 'Option 1'),
+                        buildRadioOption(1, 'Option 2'),
+                        buildRadioOption(2, 'Option 3'),
+                        buildRadioOption(3, 'Option 4'),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              Column(
-                children: [
-                  AnimatedButton(text: 'Save'),
-
-                ],
-              )],
+              AnimatedButton(text: 'SAVE'),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildRadioOption(int value, String label) {
+    return ListTile(
+      leading: Radio(
+        fillColor: MaterialStateProperty.all(Colors.green),
+        value: value,
+        groupValue: selectedOption,
+        onChanged: (value) {
+          setState(() {
+            selectedOption = value;
+          });
+        },
+      ),
+      title: Text(label),
     );
   }
 }

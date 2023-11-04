@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:untitled3/StartQuiz.dart';
+import 'AllQuiz.dart';
 import 'LearningMaterial.dart';
 import 'Widget .dart';
 
 class Quiz extends StatefulWidget {
-  const Quiz({super.key});
 
+  final chapter;
+  Quiz({super.key, required this.chapter});
   @override
   State<Quiz> createState() => _QuizState();
 }
@@ -36,7 +38,7 @@ class _QuizState extends State<Quiz> {
                   ),
                   child: ListTile(
                     title: Text(
-                      'Start Quiz',
+                      'All Quiz ${widget.chapter['name']}',
                       style: TextStyle(
                         color: Colors.green,
                         fontWeight: FontWeight.bold,
@@ -46,7 +48,8 @@ class _QuizState extends State<Quiz> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => StartQuiz(),
+                            builder: (context) =>
+                                AllQuiz( chapter: widget.chapter ),
                           ));
                     },
                   ),

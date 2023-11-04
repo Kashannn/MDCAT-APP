@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:untitled3/API/CallApi.dart';
+import 'package:untitled3/API/TokenStorage.dart';
 import 'package:untitled3/Widget .dart';
 import 'package:untitled3/signup.dart';
 
@@ -116,9 +119,14 @@ class _LoginPageState extends State<LoginPage> {
       };
       final response = await CallApi().postData(data, 'login');
       var body = response.body;
+      var apidata = json.decode(body)['data'];
       var status = response.statusCode;
+
       print(body);
       if (status == 200 || status == 201) {
+        String token = apidata['access_token'];
+        print(token);
+        TokenStorage().storeAuthToken(token);
         emailController.clear();
         passwordController.clear();
       }
