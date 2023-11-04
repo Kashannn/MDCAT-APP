@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:untitled3/API/CallApi.dart';
-
 import 'StartQuiz.dart';
 import 'Widget .dart';
 
@@ -52,9 +51,16 @@ class _AllQuizState extends State<AllQuiz> {
                 ),
                 child: ListTile(
                   title: Text(
-                    "${widget.chapter['name']}",
+                    "${AllQuiz[index]['name']}",
                     style: TextStyle(
                       color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text(
+                    "${AllQuiz[index]['description']}",
+                    style: TextStyle(
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -62,7 +68,7 @@ class _AllQuizState extends State<AllQuiz> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => StartQuiz(),
+                        builder: (context) => StartQuiz( quiz: AllQuiz[index]),
                       ),
                     );
                   },
@@ -83,6 +89,10 @@ class _AllQuizState extends State<AllQuiz> {
     for (var i = 0; i < body['data'].length; i++) {
       AllQuiz = body['data'];
     }
+
+    setState(() {
+      AllQuiz = AllQuiz;
+    });
     print(body['data']);
   }
 }

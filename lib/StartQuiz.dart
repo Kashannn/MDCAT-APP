@@ -1,9 +1,15 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-import 'Widget .dart'; // Assuming you have a valid import for the AnimatedButton
+import 'package:flutter/material.dart';
+import 'package:untitled3/AllQuiz.dart';
+
+import 'API/CallApi.dart';
+import 'Widget .dart';
 
 class StartQuiz extends StatefulWidget {
-  const StartQuiz({Key? key}) : super(key: key);
+  final quiz;
+
+  const StartQuiz({Key? key, required this.quiz}) : super(key: key);
 
   @override
   _StartQuizState createState() => _StartQuizState();
@@ -11,50 +17,81 @@ class StartQuiz extends StatefulWidget {
 
 class _StartQuizState extends State<StartQuiz> {
   int? selectedOption;
+  var StartQuiz = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    StarttQuiz();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AllBar(text: 'Quiz'),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Center(
-          child: ListView(
-            padding: EdgeInsets.all(5),
-            children: [
-              Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: ListTile(
-                  title: Text(
-                    'Question 1',
-                    style: TextStyle(
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
-                    ),
+      appBar: AllBar(text: 'Start Quiz'),
+      body: SingleChildScrollView(
+        // height: MediaQuery.of(context).size.height,
+        // width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              padding:  EdgeInsets.all(8),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: StartQuiz.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                  subtitle: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        buildRadioOption(0, 'Option 1'),
-                        buildRadioOption(1, 'Option 2'),
-                        buildRadioOption(2, 'Option 3'),
-                        buildRadioOption(3, 'Option 4'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              AnimatedButton(text: 'SAVE'),
-            ],
-          ),
+                  child: ListTile(
+                      title: Text(
+                        "${StartQuiz[index]['question']}",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Column(
+                        children: [
+                          buildRadioOption(0,
+                              '${StartQuiz[index]['options'][0]['option']}'),
+                          buildRadioOption(0,
+                              '${StartQuiz[index]['options'][1]['option']}'),
+                          buildRadioOption(0,
+                              '${StartQuiz[index]['options'][2]['option']}'),
+                          buildRadioOption(0,
+                              '${StartQuiz[index]['options'][3]['option']}'),
+                        ],
+                      )),
+                );
+              },
+            ),
+        AnimatedButton(
+          text: 'Submit',
+        ),
+          ],
         ),
       ),
     );
+  }
+
+  Future<void> StarttQuiz() async {
+    final response =
+        await CallApi().getData('quiz/${widget.quiz['id']}/questions');
+    print(response.body);
+    var body = json.decode(response.body);
+    for (var i = 0; i < body['data'].length; i++) {
+      StartQuiz = body['data'];
+    }
+
+    setState(() {
+      StartQuiz = StartQuiz;
+    });
+    print(body['data']);
   }
 
   Widget buildRadioOption(int value, String label) {
