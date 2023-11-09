@@ -82,8 +82,7 @@ class _AllQuizState extends State<AllQuiz> {
   }
 
   Future<void> getAllQuiz() async {
-    final response =
-        await CallApi().getData('chapter/${widget.chapter['id']}/quiz');
+    final response = await CallApi().getData('chapter/${widget.chapter['id']}/quiz');
     print(response.body);
     var body = json.decode(response.body);
     for (var i = 0; i < body['data'].length; i++) {

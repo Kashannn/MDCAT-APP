@@ -21,7 +21,6 @@ class _DashboardState extends State<Dashboard> {
   final List<Widget> bottomBarPages = [
     MyHomePage(),
     Subject(),
-    LearningMaterial(),
   ];
   var index = 0;
 
@@ -43,9 +42,9 @@ class _DashboardState extends State<Dashboard> {
               )),
           leading: IconButton(
             color: Colors.white,
-            icon: Icon(Icons.menu),
+            icon: Icon(Icons.exit_to_app),
             onPressed: () {
-              print('Login');
+
             },
           ),
           centerTitle: true,

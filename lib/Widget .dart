@@ -165,7 +165,7 @@ Widget squareCard(BuildContext context, String text) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                Icons.star_border_outlined,
+                Icons.assignment,
                 size: 50,
                 color: Colors.blue,
               ),
@@ -206,6 +206,9 @@ AppBar AllBar({
           end: Alignment.centerRight,
           colors: [Colors.blue, Colors.green],
         ),
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(25),
+        ),
       ),
     ),
   );
@@ -215,34 +218,34 @@ Color customColor = Color(0xFFF1916D);
 
 Widget AnimatedButton({
   required String text,
-  // required VoidCallback onPressed,
+  required VoidCallback onPressed,
 }) {
   return Align(
-    alignment: Alignment.centerRight, // Align to the right side
+    alignment: Alignment.centerRight,
     child: AnimatedContainer(
       duration: Duration(milliseconds: 300),
       margin: EdgeInsets.all(10),
-      width: 150, // Set the desired width
-      height: 50, // Set the desired height
+      width: 150,
+      height: 50,
       decoration: BoxDecoration(
-        color: customColor, // Use the customColor here
+        color: customColor,
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3), // Shadow color
-            blurRadius: 5, // Spread of the shadow
-            offset: Offset(0, 3), // Offset of the shadow
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 5,
+            offset: Offset(0, 3),
           ),
         ],
       ),
       child: InkWell(
-        // onTap: onPressed,
+        onTap: onPressed,
         child: Center(
           child: Text(
             '$text',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16, // Set the desired font size
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),

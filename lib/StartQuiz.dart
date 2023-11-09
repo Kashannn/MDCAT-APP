@@ -16,93 +16,136 @@ class StartQuiz extends StatefulWidget {
 }
 
 class _StartQuizState extends State<StartQuiz> {
-  int? selectedOption;
-  var StartQuiz = [];
+  List<Map<String, dynamic>> startQuiz = [];
+  int currentQuestionIndex = 0;
+  bool isLoading = true;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    StarttQuiz();
+    startQuizQuestions();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AllBar(text: 'Start Quiz'),
-      body: SingleChildScrollView(
-        // height: MediaQuery.of(context).size.height,
-        // width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              padding:  EdgeInsets.all(8),
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: StartQuiz.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+      body: Column(
+        children: [
+          if (isLoading)
+          // Show a loading indicator at the center of the screen
+            Center(
+              child: CircularProgressIndicator(),
+            )
+          else if (startQuiz.isNotEmpty &&
+              currentQuestionIndex < startQuiz.length)
+            Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: ListTile(
+                title: Text(
+                  "QNo:${currentQuestionIndex + 1} ${startQuiz[currentQuestionIndex]['question']}",
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
-                  child: ListTile(
-                      title: Text(
-                        "${StartQuiz[index]['question']}",
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: Column(
-                        children: [
-                          buildRadioOption(0,
-                              '${StartQuiz[index]['options'][0]['option']}'),
-                          buildRadioOption(0,
-                              '${StartQuiz[index]['options'][1]['option']}'),
-                          buildRadioOption(0,
-                              '${StartQuiz[index]['options'][2]['option']}'),
-                          buildRadioOption(0,
-                              '${StartQuiz[index]['options'][3]['option']}'),
-                        ],
-                      )),
-                );
+                ),
+                subtitle: Column(
+                  children: [
+                    buildRadioOption(
+                      currentQuestionIndex,
+                      0,
+                      '${startQuiz[currentQuestionIndex]['options'][0]['option']}',
+                    ),
+                    buildRadioOption(
+                      currentQuestionIndex,
+                      1,
+                      '${startQuiz[currentQuestionIndex]['options'][1]['option']}',
+                    ),
+                    buildRadioOption(
+                      currentQuestionIndex,
+                      2,
+                      '${startQuiz[currentQuestionIndex]['options'][2]['option']}',
+                    ),
+                    buildRadioOption(
+                      currentQuestionIndex,
+                      3,
+                      '${startQuiz[currentQuestionIndex]['options'][3]['option']}',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          if (!isLoading)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                AnimatedButton(
+                  text: 'Previous',
+                  onPressed: () {
+                    setState(() {
+                      currentQuestionIndex =
+                          (currentQuestionIndex - 1).clamp(0, startQuiz.length - 1);
+                    });
+                  },
+                ),
+                AnimatedButton(
+                  text: 'Next',
+                  onPressed: () {
+                    setState(() {
+                      currentQuestionIndex =
+                          (currentQuestionIndex + 1).clamp(0, startQuiz.length - 1);
+                    });
+                  },
+                ),
+              ],
+            ),
+          Spacer(),
+          if (!isLoading)
+          // Add some spacing between the buttons and the "Submit" button
+            SizedBox(height: 16),
+          if (!isLoading)
+            AnimatedButton(
+              text: 'Submit',
+              onPressed: () {
+                // Add your logic for handling the submit button press
               },
             ),
-        AnimatedButton(
-          text: 'Submit',
-        ),
-          ],
-        ),
+        ],
       ),
     );
   }
 
-  Future<void> StarttQuiz() async {
+  Future<void> startQuizQuestions() async {
+    final startTime = DateTime.now();
     final response =
-        await CallApi().getData('quiz/${widget.quiz['id']}/questions');
+    await CallApi().getData('quiz/${widget.quiz['id']}/questions');
+    final endTime = DateTime.now();
     print(response.body);
     var body = json.decode(response.body);
-    for (var i = 0; i < body['data'].length; i++) {
-      StartQuiz = body['data'];
+    if (body['data'] is List) {
+      setState(() {
+        startQuiz = List<Map<String, dynamic>>.from(body['data']);
+        isLoading = false;
+      });
     }
-
-    setState(() {
-      StartQuiz = StartQuiz;
-    });
     print(body['data']);
+    print('Time taken: ${endTime.difference(startTime).inMilliseconds} ms');
   }
 
-  Widget buildRadioOption(int value, String label) {
+  Widget buildRadioOption(
+      int questionIndex, int optionIndex, String label) {
     return ListTile(
       leading: Radio(
         fillColor: MaterialStateProperty.all(Colors.green),
-        value: value,
-        groupValue: selectedOption,
+        value: optionIndex,
+        groupValue: startQuiz[questionIndex]['selectedOption'],
         onChanged: (value) {
           setState(() {
-            selectedOption = value;
+            startQuiz[questionIndex]['selectedOption'] = value;
           });
         },
       ),

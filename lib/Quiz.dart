@@ -67,7 +67,7 @@ class _QuizState extends State<Quiz> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LearningMaterial(),
+                            builder: (context) => LearningMaterial(chapter: widget.chapter,),
                           ));
                     },
                   ),

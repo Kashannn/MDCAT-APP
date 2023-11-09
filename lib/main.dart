@@ -19,6 +19,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
     debugShowCheckedModeBanner: false,
       home: Dashboard(),
+      theme: ThemeData(
+        actionIconTheme: ActionIconThemeData(
+          backButtonIconBuilder: (context) => Icon(Icons.arrow_back_ios,color: Colors.white,),
+
+        ),
+        primarySwatch: Colors.green,
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.green),
+      ),
+
     );
   }
 }
